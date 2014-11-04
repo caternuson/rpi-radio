@@ -17,17 +17,24 @@ import os
 os.chdir('/home/pi/rpi-radio')
 from led8x8icons import LED8x8_ICONS
 
-#------------------------------------
-# set up
-#------------------------------------
-NOAA_URL = "w1.weather.gov"
-REQUEST = r"/xml/current_obs/KBFI.xml"
-
 matrix = Matrix8x8.Matrix8x8(address=0x70)
 segment = SevenSegment.SevenSegment(address=0x74)
 
-matrix.begin()
-segment.begin()
+#------------------------------------
+# defines
+#------------------------------------
+NOAA_URL = "w1.weather.gov"
+REQUEST = r"/xml/current_obs/KBFI.xml"
+BRIGHTNESS = 5  # 0-15
+
+#------------------------------------
+# set up displays
+#------------------------------------
+def setup_displays():
+    matrix.begin()
+    matrix.set_brightness(BRIGHTNESS)
+    segment.begin()
+    segment.set_brightness(BRIGHTNESS)
 
 #------------------------------------
 # set 8x8 matrix based on 64 bit value
@@ -75,9 +82,9 @@ dom = parseString(data)
 weather = dom.getElementsByTagName("weather")[0].firstChild.nodeValue
 temp = int(round(float(dom.getElementsByTagName("temp_f")[0].firstChild.nodeValue)))
 
-print weather
-print temp
+print "%s, %3dF" % (weather, temp)
 
+setup_displays()
 #------------------------------------
 # set LED 8x8 with weather icon
 #------------------------------------
