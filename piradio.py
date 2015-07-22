@@ -13,6 +13,7 @@
 from Adafruit_LED_Backpack import SevenSegment
 from Adafruit_LED_Backpack import BicolorMatrix8x8
 from led7seg_alpha import LED7SEG_ALPHA
+from datetime import datetime
 
 class PiRadio():
     
@@ -70,8 +71,6 @@ class PiRadio():
             self.set_pixel(x, y, color)
         self.d8.write_display()
         
-    
-        
     #----------------------------------------------------------------
     # 7 Segment LED Functions
     #----------------------------------------------------------------        
@@ -81,6 +80,17 @@ class PiRadio():
             if i>3:
                 break
             self.d7.set_digit_raw(i, LED7SEG_ALPHA.get(c.upper(), 0x00))
+        self.d7.write_display()
+        
+    def disp_time(self, format24=False):
+        n = datetime.now()
+        h = n.hour
+        m = n.minute
+        if (h>12) and not format24:
+            h -= 12
+        s = "%2i%02i" % (h,m)
+        self.disp_text(s)
+        self.d7.set_colon(True)
         self.d7.write_display()
 
 #===========================================================
