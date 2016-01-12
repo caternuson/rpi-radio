@@ -12,7 +12,7 @@ Hardware Summary
 * USB audio adapter https://www.adafruit.com/products/147
 * Bicolor 8x8 LED matrix https://www.adafruit.com/products/902
 * 7 Segment LED display https://www.adafruit.com/products/878
-* 
+
 Software Summary
 ================
 * piradio.py = defines a class with methods for controlling the hardware of the piradio box
