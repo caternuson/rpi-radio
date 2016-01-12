@@ -12,6 +12,7 @@ Hardware Summary
 * USB audio adapter https://www.adafruit.com/products/147
 * Bicolor 8x8 LED matrix https://www.adafruit.com/products/902
 * 7 Segment LED display https://www.adafruit.com/products/878
+* Cased in blue plastic Ikea box thing from Goodwill
 
 Software Summary
 ================
