@@ -24,7 +24,7 @@ pr = piradio.PiRadio()
 # defines
 #------------------------------------
 NOAA_URL = "w1.weather.gov"
-REQUEST = r"/xml/current_obs/KBFI.xml"
+REQUEST = "/xml/current_obs/KBFI.xml"
 COLOR = 1 #   1=GREEN 2=RED 3=YELLOW
  
 #------------------------------------
@@ -42,11 +42,21 @@ def giveup():
 #------------------------------------
 try:
   conn = httplib.HTTPConnection(NOAA_URL)
-  conn.request("GET", REQUEST)
+  conn.request("GET", REQUEST, 
+               headers={"User-agent":
+                        "Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:43.0) Gecko/20100101 Firefox/43.0"})
   resp = conn.getresponse()
   data = resp.read()
 except:
   giveup()
+  
+#filename = "test.log"
+#with open(filename,"w") as FILE:
+#  FILE.write("-"*80+"\n")
+#  FILE.write("URL = " + NOAA_URL + "\n")
+#  FILE.write("REQUEST = " + REQUEST + "\n")
+#  FILE.write("-"*80+"\n")
+#  FILE.write(data)
 
 #------------------------------------
 # parse the XML response into the DOM
