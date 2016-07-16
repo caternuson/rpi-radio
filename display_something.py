@@ -9,7 +9,6 @@
 #===============================================================================
 import os, os.path
 
-
 MUSIC_DIR = "/var/www/music_in/"
 SUDOPY="sudo -E PYTHONPATH=$PYTHONPATH python "
 LASTRUN = "/tmp/lastrun"
@@ -19,35 +18,20 @@ PROGRAMS = [
     "/home/pi/rpi-radio/radio_weather.py",
     "/home/pi/rpi-radio/show_time.py",
     "/home/pi/rpi-radio/reece_chat_disp.py",
+    "/home/pi/rpi-radio/flickr_count_disp.py" ,
 ]
-
-#------------------------------------
-# is there anything in the music directory?
-#------------------------------------
-'''
-def is_there_music():
-    global MUSIC_DIR
-    N = len([name for name in os.listdir(MUSIC_DIR) if os.path.isfile(MUSIC_DIR+name)])
-    if (N!=0):
-        return True
-    else:
-        return False
-'''
 
 #================================================
 # MAIN
 #================================================
-'''
-if (is_there_music()):
-    os.system(SUDOPY+"/home/pi/rpi-radio/music_count_disp.py")
-else:
-    os.system(SUDOPY+"/home/pi/rpi-radio/radio_weather.py")
-'''
-
 # simple rotation
 N = 0
-with open(LASTRUN,'r') as FILE:
-    N = int(FILE.readline().splitlines()[0])
+try:
+    with open(LASTRUN,'r') as FILE:
+        N = int(FILE.readline().splitlines()[0])
+except IOError:
+    # meh, do nothing, just let it be 0
+    pass
 N += 1
 if N >= len(PROGRAMS):
     N = 0

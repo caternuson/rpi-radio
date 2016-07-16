@@ -34,6 +34,9 @@ class PiRadio():
     #---------------------------------------------------------------- 
     def set_pixel(self, x, y, color=DEF_COLOR):
         self.d8.set_pixel(y, 7-x, color)
+        
+    def clear_pixel(self, x, y):
+        self.set_pixel(x, y, 0)
     
     def disp_bitmap(self, bitmap):
         self.d8.clear()
